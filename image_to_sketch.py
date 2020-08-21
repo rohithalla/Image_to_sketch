@@ -14,13 +14,6 @@ def dodge(front,back):
 	result[back==255]=255
 	return result.astype('uint8')
 
-
-
-s=imageio.imread(img)
-g=grayscale(s)
-i=255-g
-
-b=scipy.ndimage.filters.gaussian_filter(i,sigma=10)
-r=dodge(b,g)
+r=dodge(scipy.ndimage.filters.gaussian_filter(255-grayscale(imageio.imread(img)),sigma=10),grayscale(imageio.imread(img)))
 
 cv2.imwrite('img_result.png',r)
